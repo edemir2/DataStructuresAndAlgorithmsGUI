@@ -1,14 +1,17 @@
+import java.util.Arrays;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class demir_p8 {
 
 	
-
+	
 	private static int[] sortValues;
 	private static int[] searchValues;
-	
 	private static int[] sortedValues;
+	private static int[] sortedValues1;
+	
 	private static java.util.TreeSet<Integer> treeSetValues = new java.util.TreeSet<>();
 	private static java.util.HashSet<Integer> hashSetValues = new java.util.HashSet<>();
 	private static java.util.PriorityQueue<Integer> priorityQueueValues = new java.util.PriorityQueue<>();
@@ -18,6 +21,7 @@ public class demir_p8 {
 	private static int[] unsortedValues;
 	
 	private static javax.swing.JButton sortIntsButton;
+	private static javax.swing.JButton mergeSortButton;
 	private static javax.swing.JButton addToBstButton;
 	private static javax.swing.JButton addToTreeSetButton;
 	private static javax.swing.JButton addToPriorityQueueButton;
@@ -25,8 +29,11 @@ public class demir_p8 {
 	private static javax.swing.JButton addToArrayListButton;
 	private static javax.swing.JButton addToSortedArrayListButton;
 	private static javax.swing.JButton addToArrayButton;
+	
+	
 	 
 	private static javax.swing.JLabel sortIntsLabel;
+	private static javax.swing.JLabel mergeSortLabel;
 	private static javax.swing.JLabel addToBstLabel;
 	private static javax.swing.JLabel addToTreeSetLabel;
 	private static javax.swing.JLabel addToPriorityQueueLabel;
@@ -37,6 +44,7 @@ public class demir_p8 {
 	
 	
 	private static javax.swing.JButton searchSortedIntsButton;
+	private static javax.swing.JButton searchMergeSortButton;
 	private static javax.swing.JButton searchBstButton;
 	private static javax.swing.JButton searchTreeSetButton;
 	private static javax.swing.JButton searchPriorityQueueButton;
@@ -46,6 +54,7 @@ public class demir_p8 {
 	private static javax.swing.JButton searchArrayButton;
 	 
 	private static javax.swing.JLabel searchSortedIntsLabel;
+	private static javax.swing.JLabel searchMergeSortLabel;
 	private static javax.swing.JLabel searchBstLabel;
 	private static javax.swing.JLabel searchTreeSetLabel;
 	private static javax.swing.JLabel searchPriorityQueueLabel;
@@ -54,17 +63,19 @@ public class demir_p8 {
 	private static javax.swing.JLabel searchSortedArrayListLabel;
 	private static javax.swing.JLabel searchArrayLabel;
 	
-	
-	
-
-	
-	
-	
 	private static int width = 700;
 	private static int height = 350;
 	
+	
 	public static void main(String[] args)
+	
 	{
+		
+		
+		readData(args[0]);
+		readData(args[1]);
+		//selectionSort(sortValues,0,sortValues.length); //Index 1000 out of bounds for length 1000
+		
 		// create the window and specify the size and what to do when the window is closed
 		javax.swing.JFrame f = new javax.swing.JFrame();
 		f.setPreferredSize(new java.awt.Dimension(width, height));
@@ -111,6 +122,8 @@ public class demir_p8 {
 		
 		sortIntsButton = new javax.swing.JButton("sort ints");
 		sortIntsLabel = new javax.swing.JLabel("no result");
+		mergeSortButton = new javax.swing.JButton("merge sort ints");
+		mergeSortLabel = new javax.swing.JLabel("no result");
 		addToBstButton = new javax.swing.JButton("add to bst");
 		addToBstLabel = new javax.swing.JLabel("no result");
 		addToTreeSetButton = new javax.swing.JButton("add to treeset");
@@ -130,6 +143,7 @@ public class demir_p8 {
 		
 		
 		ButtonActionListener sortIntsButtonActionListener = new ButtonActionListener(sortIntsButton);
+		ButtonActionListener mergeSortButtonActionListener = new ButtonActionListener(mergeSortButton);    //qqqqqqqqqqqqqqqqqqqqqqqq
 		ButtonActionListener addToBstButtonActionListener = new ButtonActionListener(addToBstButton);
 		ButtonActionListener addToTreeSetButtonActionListener = new ButtonActionListener(addToTreeSetButton);
 		ButtonActionListener addToPriorityQueueButtonActionListener = new ButtonActionListener(addToPriorityQueueButton);
@@ -139,6 +153,7 @@ public class demir_p8 {
 		ButtonActionListener addToArrayButtonActionListener = new ButtonActionListener(addToArrayButton);
 		
 		sortIntsButton.addActionListener(sortIntsButtonActionListener);
+		mergeSortButton.addActionListener(mergeSortButtonActionListener);
 		addToBstButton.addActionListener(addToBstButtonActionListener);
 		addToTreeSetButton.addActionListener(addToTreeSetButtonActionListener);
 		addToPriorityQueueButton.addActionListener(addToPriorityQueueButtonActionListener);
@@ -244,8 +259,22 @@ public class demir_p8 {
 		leftButtonPanelConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
 		leftButtonGridBagLayout.setConstraints(addToArrayLabel, leftButtonPanelConstraints);
 		
+
+		leftButtonPanelConstraints.gridx = 0;
+		leftButtonPanelConstraints.gridy = 8;
+		leftButtonPanelConstraints.gridwidth = 1;
+		leftButtonGridBagLayout.setConstraints(mergeSortButton, leftButtonPanelConstraints);
+		
+		leftButtonPanelConstraints.gridx = 1;
+		leftButtonPanelConstraints.gridy = 8;
+		leftButtonPanelConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+		leftButtonGridBagLayout.setConstraints(mergeSortLabel, leftButtonPanelConstraints);
+		
+		
+		
 	
 		leftButtonPanel.add(sortIntsButton);
+		leftButtonPanel.add(mergeSortButton);
 		leftButtonPanel.add(addToBstButton);
 		leftButtonPanel.add(addToTreeSetButton);
 		leftButtonPanel.add(addToPriorityQueueButton);
@@ -254,6 +283,7 @@ public class demir_p8 {
 		leftButtonPanel.add(addToSortedArrayListButton);
 		leftButtonPanel.add(addToArrayButton);
 		leftButtonPanel.add(sortIntsLabel);
+		leftButtonPanel.add(mergeSortLabel);
 		leftButtonPanel.add(addToBstLabel);
 		leftButtonPanel.add(addToTreeSetLabel);
 		leftButtonPanel.add(addToPriorityQueueLabel);
@@ -273,6 +303,8 @@ public class demir_p8 {
 		
 		searchSortedIntsButton = new javax.swing.JButton("search sorted ints");
 		searchSortedIntsLabel = new javax.swing.JLabel("no result");
+		searchMergeSortButton = new javax.swing.JButton("search merge sorted ints");
+		searchMergeSortLabel = new javax.swing.JLabel("no result");
 		searchBstButton = new javax.swing.JButton("search bst");
 		searchBstLabel = new javax.swing.JLabel("no result");
 		searchTreeSetButton = new javax.swing.JButton("search treeset");
@@ -291,6 +323,7 @@ public class demir_p8 {
 
 	 	
 		ButtonActionListener searchSortedIntsButtonActionListener = new ButtonActionListener(searchSortedIntsButton);
+		ButtonActionListener searchMergeSortButtonActionListener = new ButtonActionListener(searchMergeSortButton);
 		ButtonActionListener searchBstButtonActionListener = new ButtonActionListener(searchBstButton);
 		ButtonActionListener searchTreeSetButtonActionListener = new ButtonActionListener(searchTreeSetButton);
 		ButtonActionListener searchPriorityQueueButtonActionListener = new ButtonActionListener(searchPriorityQueueButton);
@@ -299,7 +332,8 @@ public class demir_p8 {
 		ButtonActionListener searchSortedArrayListButtonActionListener = new ButtonActionListener(searchSortedArrayListButton);
 		ButtonActionListener searchArrayButtonActionListener = new ButtonActionListener(searchArrayButton);
 			
-		sortIntsButton.addActionListener(searchSortedIntsButtonActionListener);
+		searchSortedIntsButton.addActionListener(searchSortedIntsButtonActionListener);
+		searchMergeSortButton.addActionListener(searchMergeSortButtonActionListener);
 		searchBstButton.addActionListener(searchBstButtonActionListener);
 		searchTreeSetButton.addActionListener(searchTreeSetButtonActionListener);
 		searchPriorityQueueButton.addActionListener(searchPriorityQueueButtonActionListener);
@@ -433,9 +467,24 @@ public class demir_p8 {
 		rightButtonPanelConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
 		rightButtonGridBagLayout.setConstraints(searchArrayLabel,rightButtonPanelConstraints);
 		 
+		//------------------------------------------------------------------------------------
+
+		
+		rightButtonPanelConstraints.gridx = 2;
+		rightButtonPanelConstraints.gridy = 8;
+		rightButtonPanelConstraints.gridwidth = 1;
+		rightButtonGridBagLayout.setConstraints(searchMergeSortButton,rightButtonPanelConstraints);
+				
+				
+		rightButtonPanelConstraints.gridx = 3;
+		rightButtonPanelConstraints.gridy = 8;
+		rightButtonPanelConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+		rightButtonGridBagLayout.setConstraints(searchMergeSortLabel,rightButtonPanelConstraints);
+				 
 		
 		
 		rightButtonPanel.add(searchSortedIntsButton);
+		rightButtonPanel.add(searchMergeSortButton);
 	 	rightButtonPanel.add(searchBstButton);
 	 	rightButtonPanel.add(searchTreeSetButton);
 	 	rightButtonPanel.add(searchPriorityQueueButton);
@@ -444,6 +493,7 @@ public class demir_p8 {
 	 	rightButtonPanel.add(searchSortedArrayListButton);
 	 	rightButtonPanel.add(searchArrayButton);
 	 	rightButtonPanel.add(searchSortedIntsLabel);
+	 	rightButtonPanel.add(searchMergeSortLabel);
 	 	rightButtonPanel.add(searchBstLabel);
 	 	rightButtonPanel.add(searchTreeSetLabel);
 	 	rightButtonPanel.add(searchPriorityQueueLabel);
@@ -451,7 +501,18 @@ public class demir_p8 {
 	 	rightButtonPanel.add(searchArrayListLabel);
 	 	rightButtonPanel.add(searchSortedArrayListLabel);
 	 	rightButtonPanel.add(searchArrayLabel);
-		
+	 	
+	 	
+	 	searchSortedIntsButton.setEnabled(false);
+	 	searchMergeSortButton.setEnabled(false);
+	 	searchBstButton.setEnabled(false);
+	 	searchTreeSetButton.setEnabled(false);
+	 	searchPriorityQueueButton.setEnabled(false);
+	 	searchHashSetButton.setEnabled(false);
+	 	searchArrayListButton.setEnabled(false);
+	 	searchSortedArrayListButton.setEnabled(false);
+	 	searchArrayButton.setEnabled(false);
+	 	
 
 		// create the panel to hold the four buttons
 		javax.swing.JPanel MainButtonPanel = new javax.swing.JPanel();
@@ -462,19 +523,11 @@ public class demir_p8 {
 		MainButtonPanel.add(leftButtonPanel);
 		MainButtonPanel.add(rightButtonPanel);
 
-		
-		
-		
-		
-	
-		
 		javax.swing.JPanel mainPanel = new javax.swing.JPanel();
 		mainPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0,0,0,255), 2));
 		mainPanel.setLayout(new java.awt.BorderLayout());
 		mainPanel.add(menuBar, java.awt.BorderLayout.NORTH);
 		mainPanel.add(MainButtonPanel, java.awt.BorderLayout.CENTER);
-		
-
 		
 		f.setContentPane(mainPanel);
 		f.validate();
@@ -505,7 +558,10 @@ public class demir_p8 {
 					
 					
 					if( m.getText().toLowerCase().equals("read sort file") )
+						
 					{
+						
+						
 						System.out.println("read sort file");
 					}
 					
@@ -513,9 +569,7 @@ public class demir_p8 {
 					{
 						System.out.println("read search file");
 					}
-					
-				}
-				
+				}	
 	}
 	
 	
@@ -526,6 +580,7 @@ public class demir_p8 {
 		// share this one class with multiple buttons
 		private javax.swing.JButton b;
 		
+		
 		ButtonActionListener(javax.swing.JButton b)
 		{
 			this.b = b;
@@ -535,66 +590,297 @@ public class demir_p8 {
 		{
 			System.out.println("action performed on " + b.getText() + " button");
 			
-			if( b.getText().toLowerCase().equals("sort ints") )
+			if( b.getText().toLowerCase().equals("sort ints") )						//DONE
 			{
+				
+				// call the appropriate method to perform the required action
+				long t0 = System.currentTimeMillis();
+				selectionSort(sortValues,0,sortValues.length);
+				long t1 = System.currentTimeMillis();
+				
+				sortIntsLabel.setText((t1 - t0) + "ms");
+				searchSortedIntsButton.setEnabled(true);
+
+			}		
+			if( b.getText().toLowerCase().equals("merge sort ints") )						//DONE
+			{
+				
+				
+				long t0 = System.currentTimeMillis();
+				mergeSort(sortValues,sortValues.length);
+				long t1 = System.currentTimeMillis();
+				
+				mergeSortLabel.setText((t1 - t0) + "ms");
+				searchMergeSortButton.setEnabled(true);
+
+			}		
+			if( b.getText().toLowerCase().equals("add to bst") ) 					//COME BACK LATER
+			{
+				long t0 = System.currentTimeMillis();
+				addToBinarySearchTree(sortValues);
+				long t1 = System.currentTimeMillis();
+				
+				addToBstLabel.setText((t1 - t0) + "ms");
+				
+				searchBstButton.setEnabled(true);
+				
+			}
+			if( b.getText().toLowerCase().equals("add to treeset") ) 				//DONE
+			{
+				long t0 = System.currentTimeMillis();
+				addToTreeSet(sortValues);
+				long t1 = System.currentTimeMillis();
+				
+				addToTreeSetLabel.setText((t1 - t0) + "ms");
+				
+				searchTreeSetButton.setEnabled(true);
+			}
+			if( b.getText().toLowerCase().equals("add to priority queue") )			//DONE
+			{
+				long t0 = System.currentTimeMillis();
+				addToPriorityQueue(sortValues);
+				long t1 = System.currentTimeMillis();
+				
+				addToPriorityQueueLabel.setText((t1 - t0) + "ms");
+				
+				searchPriorityQueueButton.setEnabled(true);
+			}
+			if( b.getText().toLowerCase().equals("add to hash set") )				//DONE
+			{
+				long t0 = System.currentTimeMillis();
+				addToHashSet(sortValues);
+				long t1 = System.currentTimeMillis();
+				
+				addToHashSetLabel.setText((t1 - t0) + "ms");
+				
+				searchHashSetButton.setEnabled(true);
+			}
+			if( b.getText().toLowerCase().equals("add to array list") )				//DONE
+			{
+				long t0 = System.currentTimeMillis();
+				addToArrayList(sortValues);
+				long t1 = System.currentTimeMillis();
+				
+				addToArrayListLabel.setText((t1 - t0) + "ms");
+				
+				searchArrayListButton.setEnabled(true);
+			}
+			if( b.getText().toLowerCase().equals("add to sorted array list") )		//DONE
+			{
+				long t0 = System.currentTimeMillis();
+				addToSortedArrayList(sortValues);
+				long t1 = System.currentTimeMillis();
+				
+				addToSortedArrayListLabel.setText((t1 - t0) + "ms");
+				
+				searchSortedArrayListButton.setEnabled(true);
+			 	
+				
+			}
+			if( b.getText().toLowerCase().equals("add to array") )					//DONE
+			{
+				long t0 = System.currentTimeMillis();
+				addToArray(sortValues);
+				long t1 = System.currentTimeMillis();
+				
+				addToArrayLabel.setText((t1 - t0) + "ms");
+				
+				searchArrayButton.setEnabled(true);
+			}
+			
+		 	
+			if( b.getText().toLowerCase().equals("search sorted ints") )				
+			{
+				// call the appropriate method to perform the required action
+				int c = 0;
+				long t0 = System.currentTimeMillis();
+				for(int a = 0; a< searchValues.length;a++)
+				{
+				int f = searchInts(sortedValues, searchValues[a]);
+				
+					if(f == searchValues[a])
+					{
+						c++;
+					}
+				}
+				long t1 = System.currentTimeMillis();
+				
+				searchSortedIntsLabel.setText(c +" / "+ (t1 - t0) + "ms");
 
 			}
-			if( b.getText().toLowerCase().equals("add to bst") )
+			
+			if( b.getText().toLowerCase().equals("search merge sorted ints") )		 //==================
 			{
+				
+				int c = 0;
+				long t0 = System.currentTimeMillis();
+				for(int a = 0; a< searchValues.length;a++)
+				{
+				int f = searchMergeSortedInts(sortedValues1, searchValues[a]);
+				
+					if(f == searchValues[a])
+					{
+						c++;
+					}
+				}
+				long t1 = System.currentTimeMillis();
+				
+				searchMergeSortLabel.setText(c +" / "+ (t1 - t0) + "ms");
+
+			}
+			
+			if( b.getText().toLowerCase().equals("search bst") ) 					//
+			{
+				int c = 0;
+				long t0 = System.currentTimeMillis();
+				for(int a = 0; a< searchValues.length;a++)
+				{
+				boolean f = searchBinarySearchTree(bst,searchValues[a]);
+				
+					if(f == true)
+					{
+						c++;
+					}
+				}
+				long t1 = System.currentTimeMillis();
+				searchBstLabel.setText(c +" / "+(t1 - t0) + "ms");
 				
 			}
-			if( b.getText().toLowerCase().equals("add to treeset") )
+			
+			if( b.getText().toLowerCase().equals("search treeset") ) 				//
 			{
+				int c = 0;
+				long t0 = System.currentTimeMillis();
+				for(int a = 0; a< searchValues.length;a++) 
+				{
+				int f = searchTreeSet(treeSetValues,searchValues[a]);
+
+					if(f == searchValues[a])
+					{
+						c++;
+					}
+				}
+				long t1 = System.currentTimeMillis();
 				
+				searchTreeSetLabel.setText(c +" / "+(t1 - t0) + "ms");
 			}
-			if( b.getText().toLowerCase().equals("add to priority queue") )
+			if( b.getText().toLowerCase().equals("search priority queue") )			//
 			{
+				int c = 0;
+				long t0 = System.currentTimeMillis();
+				for(int a = 0; a< searchValues.length;a++)
+				{
+				int f = searchPriorityQueue(priorityQueueValues,searchValues[a]);
+					if(f == searchValues[a])
+					{
+						c++;
+					}
+				}
+				long t1 = System.currentTimeMillis();
 				
+				searchPriorityQueueLabel.setText(c +" / "+(t1 - t0) + "ms");
 			}
-			if( b.getText().toLowerCase().equals("add to hash set") )
+			if( b.getText().toLowerCase().equals("search hash set") )				//
 			{
 				
+				int c = 0;
+				long t0 = System.currentTimeMillis();
+				for(int a = 0; a< searchValues.length;a++)
+				{
+				int f = searchHashSet(hashSetValues,searchValues[a]);
+					if(f == searchValues[a])
+					{
+						c++;
+					}
+				}
+				long t1 = System.currentTimeMillis();
+				
+				searchHashSetLabel.setText(c +" / "+(t1 - t0) +  "ms");
 			}
-			if( b.getText().toLowerCase().equals("add to array list") )
+			if( b.getText().toLowerCase().equals("search array list") )				//
 			{
+				int c = 0;
+				long t0 = System.currentTimeMillis();
+				for(int a = 0; a< searchValues.length;a++)
+				{
+				int f = searchArrayList(arrayListValues,searchValues[a]);
+					if(f>0)
+					{
+						c++;
+					}
+				}
+				long t1 = System.currentTimeMillis();
 				
+				searchArrayListLabel.setText(c +" / "+(t1 - t0) +  "ms");
 			}
-			if( b.getText().toLowerCase().equals("add to sorted array list") )
+			if( b.getText().toLowerCase().equals("search sorted array list") )		// 
 			{
+				int c = 0;
+				long t0 = System.currentTimeMillis();
+				for(int a = 0; a< searchValues.length;a++)
+				{
+				int f = searchSortedArrayList(sortedArrayListValues,searchValues[a]);
+					if(f>0)
+					{
+						c++;
+					}
+				}
+				long t1 = System.currentTimeMillis();
 				
+				searchSortedArrayListLabel.setText(c +" / "+(t1 - t0) +  "ms");
 			}
-			if( b.getText().toLowerCase().equals("add to array") )
+			if( b.getText().toLowerCase().equals("search array") )					//
 			{
+				int c = 0;
+				long t0 = System.currentTimeMillis();
+				for(int a = 0; a< searchValues.length;a++)
+				{
+				int f = searchArray(unsortedValues,searchValues[a]);
+					if(f>0)
+					{
+						c++;
+					}
+				}
+				long t1 = System.currentTimeMillis();
 				
+				searchArrayLabel.setText(c +" / "+(t1 - t0) +  "ms");
 			}
 			
 		}
 		
 	}	
 	
-	
-	private static void selectionSort(int[] sortValues, int lowerBound, int upperBound)
+	private static void selectionSort(int[] sortedValues11, int lowerBound, int upperBound) //  Cannot read the array length because "sortedValues" is null --> sortInt button 
 	{
+		  
+		 
 		  for ( int j= lowerBound; j < upperBound; j++ )
 		  {
 			  	int min = j;
-		        for ( int k=j+1; k <= upperBound; k++ )
+		        for ( int k=j+1; k < upperBound; k++ )
 		        {
-		        	if ( sortValues[k] < sortValues[min] )
+		        	if ( sortedValues11[k] < sortedValues11[min] )
 		        	{  
 		        		min = k;
 		            }  
 		                 
-		            	int temp = sortValues[j];
-		            	sortValues[j] = sortValues[min];
-		            	sortValues[min] = temp;
+		            	int temp = sortedValues11[j];
+		            	sortedValues11[j] = sortedValues11[min];
+		            	sortedValues11[min] = temp;
 		        }
 		  }
+		  
+		  sortedValues = new int[sortedValues11.length];
+		  for(int i = 0; i< sortedValues11.length;i++)
+          {
+          	sortedValues[i] = sortedValues11[i];
+          }
+		  
+		  
 		                 
 	}
 	
-	
-	private static int searchInts(int[] sortedValues, int searchValue)
+	private static int searchInts(int[] sortedValues, int searchValue)  //Cannot read the array length because "sortedValues" is null
 	{
 		int searchedValue = 0; 
 	    int bottom = 0;
@@ -602,32 +888,143 @@ public class demir_p8 {
 	    while(bottom<=top)
 	    {
 	    	int middle = (bottom+top)/2;
+	    	
 	    	if(searchValue < sortedValues[middle])
 	    	{
 	    		top = middle-1;
 	    	}
 	    	else
 	    	{
-	    		searchedValue = searchValue;
+	    		if(searchValue > sortedValues[middle])
+	    		{
+	    			bottom = middle + 1;
+	    		}
+	    		else
+	    		{
+	    			searchedValue = searchValue;
+	    			break;
+	    		}
 	    	}
 	    }
 		return searchedValue;	
-			
 	}
-	
-	
-	private static void addToBinarySearchTree(Node[] values)
+	private static void mergeSort(int[] sortArray, int lengthOfArray) 
 	{
-		for(Node i: values)
+		
+		if (lengthOfArray < 2) 
 		{
-			bst.insertNode(i);
+			return;
+		}
+		
+		int mid = lengthOfArray / 2;
+		int[] leftArray = new int[mid];
+		int[] rightArray = new int[lengthOfArray - mid];
+	
+		for (int i = 0; i < mid; i++) 
+		{
+			leftArray[i] = sortArray[i];
+		}
+		
+		for (int i = mid; i < lengthOfArray; i++) 
+		{
+			rightArray[i - mid] = sortArray[i];
+		}
+		
+		mergeSort(leftArray, mid);
+		mergeSort(rightArray, lengthOfArray - mid);
+	
+		merge(sortArray, leftArray, rightArray, mid, lengthOfArray - mid);
+		
+		sortedValues1 = new int[sortArray.length]; // an array to search in search merge sorted ints
+		  for(int i = 0; i< sortArray.length;i++)
+        {
+        	sortedValues1[i] = sortArray[i];
+        }
+	}
+
+	private static void merge(int[] sortArray, int[] leftArray, int[] rightArray, int left, int right) 
+	{
+ 
+		int i = 0, j = 0, k = 0;
+		
+		while (i < left && j < right) 
+		{
+	        if (leftArray[i] <= rightArray[j]) 
+	        {
+	            sortArray[k++] = leftArray[i++];
+	        }
+	        else 
+	        {
+	            sortArray[k++] = rightArray[j++];
+	        }
+		}
+		
+		while (i < left) 
+		{
+			sortArray[k++] = leftArray[i++];
+		}
+		while (j < right) 
+		{
+			sortArray[k++] = rightArray[j++];
 		}
 	}
 	
-	
-	private static int searchBinarySearchTree(BinarySearchTree[] bst, int searchValue)
+	private static int searchMergeSortedInts(int[] sortedValues, int searchValue)  //Cannot read the array length because "sortedValues" is null
 	{
-		return 0;
+		int searchedValue = 0; 
+	    int bottom = 0;
+	    int top = sortedValues.length-1;
+	    while(bottom<=top)
+	    {
+	    	int middle = (bottom+top)/2;
+	    	
+	    	if(searchValue < sortedValues[middle])
+	    	{
+	    		top = middle-1;
+	    	}
+	    	else
+	    	{
+	    		if(searchValue > sortedValues[middle])
+	    		{
+	    			bottom = middle + 1;
+	    		}
+	    		else
+	    		{
+	    			searchedValue = searchValue;
+	    			break;
+	    		}
+	    	}
+	    }
+		return searchedValue;	
+	}
+	
+	private static void addToBinarySearchTree(int[] values)						
+	{
+		for(Integer i: sortValues)
+		{
+			
+			Node a = new Node(i);
+			bst.insertNode(a);
+		}
+		
+	}
+	
+	
+	
+	
+	private static boolean searchBinarySearchTree(BinarySearchTree bst,int searchValue)  //PROBLEM
+	{
+		boolean returnValue = false;
+		for(Integer i: sortValues)
+		{
+			Node a = new Node(searchValue);
+			if(bst.getNode(a, i) != null)
+			{
+				returnValue = true;
+			}
+		}
+		return returnValue;
+			
 	}
 	
 	
@@ -711,7 +1108,7 @@ public class demir_p8 {
 	}
 	
 	
-	private static void addToSortedArrayList(int[] values)
+	private static void addToSortedArrayList(int[] values) 
 	{
 		
 		for(Integer i: values)
@@ -724,27 +1121,34 @@ public class demir_p8 {
 	}
 	
 	
-	private static int searchSortedArrayList(java.util.ArrayList<Integer> sortedArrayListValues, int searchValue)
+	private static int searchSortedArrayList(java.util.ArrayList<Integer> sortedArrayListValues, int searchValue) // Index -1 out of bounds for length 0
 	{
 		
-		
-			int index = java.util.Collections.binarySearch(sortedArrayListValues, searchValue);
 			
-			return sortedArrayListValues.get(index);
+			int index = java.util.Collections.binarySearch(sortedArrayListValues, searchValue);
+			if(index < 0)
+			{
+				return 0;
+			}
+			else
+			{
+				return sortedArrayListValues.get(index);
+			}
 		
 	}
 	
 	
 	private static void addToArray(int[] values)
 	{
-		for(Integer i: values)
+		unsortedValues 	= new int[values.length];
+		for(int i=0; i<values.length;++i)
 		{
-			values[i] = unsortedValues[i];
+			 unsortedValues[i] = values[i];
 		}
 	}
 	
-	
-	private static int searchArray(int[] unsortedValues, int searchValue)
+
+	private static int searchArray(int[] unsortedValues, int searchValue)  //Cannot read the array length because "unsortedValues" is null
 	{
 		int returnValue = 0;
 		for(Integer i: unsortedValues)
@@ -758,10 +1162,7 @@ public class demir_p8 {
 	}
 	
 	
-	
-	
-	
-	private static void readData(String filename, boolean readSortValues)
+	private static void readData(String filename)	//I cannot save the values to sortedValues above
 	{
 		try
 		{
@@ -769,28 +1170,50 @@ public class demir_p8 {
             java.util.ArrayList<Integer> output = new java.util.ArrayList<>();
            
           
-            String sort_Line  = input.readLine();
+            String Line  = input.readLine();
            
-            while(sort_Line != null)
+            while(Line != null)
 			{    
-            	output.add(Integer.valueOf(sort_Line));
-            	sort_Line=input.readLine();
+            	output.add(Integer.valueOf(Line));
+            	Line=input.readLine();
 			}
             
-            int[] lastOutput = null;
-            for(int i = 0; i< output.size();i++)
+            if(filename.contains("sort"))
             {
-            	lastOutput[i] = output.get(i);
+            	
+            	sortValues = new int[output.size()];
+	            for(int i = 0; i< output.size();i++)
+	            {
+	            	sortValues[i] = output.get(i);
+	            }
+	           
+	            
+            }
+            if(filename.contains("search"))
+            {
+            	 searchValues = new int[output.size()];
+                 for(int j = 0; j< output.size();j++)
+                 {
+                 	searchValues[j] = output.get(j);
+                 }
+                 
             }
             
+           
+  
             input.close();
            
-			}
+		}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				System.out.println(e.toString());
 				System.exit(0);
 			}
 	}
 	
 }
+
+
+
+
+
